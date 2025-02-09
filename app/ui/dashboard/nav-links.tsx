@@ -1,13 +1,14 @@
 'use client';
 
-import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
-  ChatBubbleLeftIcon,
-  Cog6ToothIcon,
-  MapPinIcon, // Nouvelle icône pour Mon Parking
+import {  
+  UserIcon,  
+  HomeIcon,  
+  ShoppingBagIcon, // Remplace ShoppingBasketIcon par ShoppingBagIcon
+  ChatBubbleLeftIcon,  
+  Cog6ToothIcon,  
+  MapPinIcon,  
 } from '@heroicons/react/24/outline'; // Import des icônes
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
@@ -15,16 +16,16 @@ import clsx from 'clsx';
 // Map of links to display in the side navigation.
 const links = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
-  { name: 'Factures', href: '/dashboard/invoices', icon: DocumentDuplicateIcon },
-  { name: 'Clients', href: '/dashboard/clients', icon: UserGroupIcon },
-  // Utilisation de l'icône MapPin pour Mon Parking
+  { name: 'Réservations', href: '/dashboard/reservations', icon: ShoppingBagIcon }, // Remplacé Factures
   { name: 'Mon Parking', href: '/dashboard/parking', icon: MapPinIcon },
   { name: 'Messages', href: '/dashboard/messages', icon: ChatBubbleLeftIcon },
+  { name: 'Profil', href: '/dashboard/profile', icon: UserIcon }, // Remplacé Clients
   { name: 'Paramètres', href: '/dashboard/settings', icon: Cog6ToothIcon },
 ];
 
 export default function NavLinks() {
   const pathname = usePathname();
+  
   return (
     <>
       {links.map((link) => {

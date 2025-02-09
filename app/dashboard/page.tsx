@@ -1,7 +1,24 @@
 "use client"; // Indique que ce fichier est un composant côté client
+  
+import { TrendingUp } from "lucide-react"
+import { Bar, BarChart, CartesianGrid, XAxis, Area, AreaChart } from "recharts"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent  } from "@/components/ui/chart"
+
+
+
+
+
 
 import React from "react";
-import { Line, Bar, Doughnut } from "react-chartjs-2";
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,91 +48,57 @@ ChartJS.register(
 );
 
 export default function Page() {
-  const lineData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    datasets: [
-      {
-        label: "Ventes",
-        data: [10, 20, 30, 40, 50, 60],
-        backgroundColor: "rgba(253, 106, 0, 0.2)",  // Couleur orange sous la ligne
-        borderColor: "#FD6A00",  // Couleur de la ligne
-        borderWidth: 2,
-        fill: true,  // Active le remplissage sous la ligne
-        tension: 0.4,  // Option pour ajuster la courbure de la ligne
-      },
-    ],
-  };
 
-  // Nouveau graphique de courbe pour les locations
-  const lineRentalData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    datasets: [
-      {
-        label: "Locations",
-        data: [15, 30, 20, 25, 40, 60],
-        backgroundColor: "rgba(253, 106, 0, 0.2)", // Remplissage sous la courbe
-        borderColor: "#FD6A00", // Couleur de la courbe
-        borderWidth: 2,
-        tension: 0.4, // Courbure de la ligne
-        fill: true, // Remplir l'espace sous la courbe
-      },
-    ],
-  };
+  const chartData = [
+    { month: "January", vente: 150, location: 100 },
+    { month: "February", vente: 175, location: 162 },
+    { month: "March", vente: 157, location: 110 },
+    { month: "April", vente: 200, location: 180 },
+    { month: "May", vente: 199, location: 250 },
+    { month: "June", vente: 275, location: 100 },
+  ]
 
-  const barData = {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-    datasets: [
-      {
-        label: "Profits",
-        data: [10, 20, 30, 40, 50, 60],
-        backgroundColor: "#FD6A00",
-        borderColor: "#FD6A00",
-        borderWidth: 2,
-      },
-    ],
-  };
+  const chartData2 = [
+    { month: "January", profit: 186 },
+    { month: "February", profit: 305 },
+    { month: "March", profit: 237 },
+    { month: "April", profit: 73 },
+    { month: "May", profit: 209 },
+    { month: "June", profit: 214 },
+  ]
+ 
+  const chartConfig = {
+    vente: {
+      label: "Vente",
+      color: "#FD6A00",
+    },
+    location: {
+      label: "Location",
+      color: "#A1541C",
+    },
+    profit: {
+      label: "Profit",
+      color: "#A1541C",
+    },
+  } satisfies ChartConfig
+  
 
-  // Top des Marques en Vente avec largeur réduite
-  const salesByBrandData = {
-    labels: ["Marque A", "Marque B", "Marque C", "Marque D"],
-    datasets: [
-      {
-        label: "Top des Marques en Vente",
-        data: [50, 30, 15, 5], // Nombre de ventes par marque
-        backgroundColor: "#FD6A00", // Couleur des barres
-        borderColor: "#FD6A00", // Bordure des barres
-        borderWidth: 1,
-        barThickness: 10, // Réduction de la largeur des barres
-      },
-    ],
-  };
 
-  // Top des Marques en Location avec largeur réduite
-  const rentalsByBrandData = {
-    labels: ["Marque A", "Marque B", "Marque C", "Marque D"],
-    datasets: [
-      {
-        label: "Top des Marques en Location",
-        data: [60, 40, 30, 10], // Nombre de locations par marque
-        backgroundColor: "#FFA500", // Couleur des barres
-        borderColor: "#FFA500", // Bordure des barres
-        borderWidth: 1,
-        barThickness: 10, // Réduction de la largeur des barres
-      },
-    ],
-  };
+
+
+
+
+  
 
   const stats = [
-    { label: "Voitures Vendues", value: 450, icon: <FaCar />, onClick: () => alert("Détail des ventes") },
-    { label: "Voitures Louées", value: 320, icon: <FaCarSide />, onClick: () => alert("Détail des locations") },
-    { label: "Avis Parking", value: 120, icon: <FaStar />, onClick: () => alert("Voir les avis") },
-    { label: "Revenu Actuel", value: "$12,300", icon: <FaDollarSign />, onClick: () => alert("Détail des revenus") },
-    { label: "Réservations en cours", value: 25, icon: <FaClipboardList />, onClick: () => alert("Détail des réservations") },
-    { label: "Voitures Disponibles", value: 200, icon: <FaCar />, onClick: () => alert("Détail des voitures disponibles") },
+
+    { label: "Réservations en cours", value: 5, icon: <FaClipboardList />, onClick: () => alert("Détail des réservations") },
+    { label: "Voitures Disponibles", value: 90, icon: <FaCar />, onClick: () => alert("Détail des voitures disponibles") },
+    { label: "Revenu Actuel", value: "850 Millions", icon: <FaDollarSign />, onClick: () => alert("Détail des revenus") },
   ];
 
   return (
-    <div className="bg-gray-50 p-6 pt-10">
+    <div className="bg-gray-50 p-6 pt-10 font-titre ">
       {/* Statistiques en haut */}
       <div className="flex flex-wrap gap-4 justify-between mb-6">
         {stats.map((stat, index) => (
@@ -137,72 +120,91 @@ export default function Page() {
 
       {/* Graphiques */}
       <div className="flex gap-4">
-        {/* Line Chart pour les ventes avec fond orange */}
+        {/* graphique pour les ventes et locations */}
         <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%]">
-          <h2 className="text-lg mb-2 font-bold">Ventes (en nombre)</h2>
-          <Line data={lineData} />
+        <Card>
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold mb-4">Nombre de voiture vendues et louées</CardTitle>
+        <CardDescription>Nombre de vente et loue sur les 6 derniers mois</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <BarChart accessibilityLayer data={chartData}>
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="dashed" />}
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Bar dataKey="vente" fill="var(--color-vente)" radius={4} />
+            <Bar dataKey="location" fill="var(--color-location)" radius={4} />
+          </BarChart>
+        </ChartContainer>
+      </CardContent>
+     
+    </Card>
+
         </div>
 
-        {/* Courbe pour les locations */}
-        <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%]">
-          <h2 className="text-lg mb-2 font-bold">Locations (en nombre)</h2>
-          <Line data={lineRentalData} />
-        </div>
+       
 
-        {/* Graphique de barres verticales avec largeur réduite pour les ventes par marque */}
-        <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%]">
-          <h2 className="text-lg mb-2 font-bold">Top des Marques en Vente</h2>
-          <Bar
-            data={salesByBrandData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "top",
-                },
-                tooltip: {
-                  callbacks: {
-                    label: function (context) {
-                      return context.dataset.label + ": " + context.raw + " ventes";
-                    },
-                  },
-                },
-              },
+        {/* Graphique pour le profit */}
+        <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%] " >
+        <Card>
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold mb-4">Profit </CardTitle>
+        <CardDescription>
+         Le revenu généré sur les 6 derniers mois en millions de FCFA
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <ChartContainer config={chartConfig}>
+          <AreaChart
+            accessibilityLayer
+            data={chartData2}
+            margin={{
+              left: 12,
+              right: 12,
             }}
-          />
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey="month"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line" />}
+            />
+            <ChartLegend content={<ChartLegendContent />} />
+            <Area
+              dataKey="profit"
+              type="natural"
+              fill="var(--color-profit)"
+              fillOpacity={0.4}
+              stroke="var(--color-profit)"
+            />
+          </AreaChart>
+        </ChartContainer>
+      </CardContent>
+      
+    </Card>
+        
+      
         </div>
       </div>
 
-      <div className="flex gap-4 mt-6">
-        {/* Graphique de barres verticales avec largeur réduite pour les locations par marque */}
-        <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%]">
-          <h2 className="text-lg mb-2 font-bold">Top des Marques en Location</h2>
-          <Bar
-            data={rentalsByBrandData}
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: "top",
-                },
-                tooltip: {
-                  callbacks: {
-                    label: function (context) {
-                      return context.dataset.label + ": " + context.raw + " locations";
-                    },
-                  },
-                },
-              },
-            }}
-          />
-        </div>
-
-        {/* Bar Chart pour les profits */}
-        <div className="bg-white p-4 rounded-lg shadow-md flex-[1_1_30%]">
-          <h2 className="text-lg mb-2 font-bold">Profits mensuels(en millions de Fcfa)</h2>
-          <Bar data={barData} />
-        </div>
-      </div>
+     
     </div>
   );
 }
